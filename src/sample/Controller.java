@@ -74,7 +74,7 @@ public class Controller implements Initializable {
 
 
         // FORM VALIDATION
-        
+
         boolean name = FormValidation.textFieldNotEpmty(nameInput, nameLabel, "Wpisz imię!");
         boolean surname = FormValidation.textFieldNotEpmty(surnameInput, surnameLabel, "Wpisz nazwisko!");
         boolean city = FormValidation.textFieldNotEpmty(cityInput, cityLabel, "Wpisz miasto!");
