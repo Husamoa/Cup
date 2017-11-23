@@ -18,7 +18,9 @@ public class Table {
         this.rCity = new SimpleStringProperty(sCity);
     }
 
-
+    public String toString(String separator) {
+        return getRName() + separator + getRSurname() + separator + getRCity();
+    }
 
     // getters and setters
 

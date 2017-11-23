@@ -155,7 +155,7 @@
             <TextField fx:id="textField13" layoutX="823.0" layoutY="374.0" prefHeight="27.0" prefWidth="44.0" />
             <TextField fx:id="textField14" layoutX="823.0" layoutY="407.0" prefHeight="27.0" prefWidth="44.0" />
             <Button layoutX="724.0" layoutY="388.0" mnemonicParsing="false" onAction="#winner7" prefHeight="27.0" prefWidth="79.0" text="Wynik" />
-            <AnchorPane layoutX="973.0" layoutY="480.0" prefHeight="350.0" prefWidth="432.0">
+            <AnchorPane layoutX="973.0" layoutY="479.0" prefHeight="351.0" prefWidth="458.0">
                <children>
                   <SplitPane dividerPositions="0.6717791411042945" layoutY="21.0" orientation="VERTICAL" prefHeight="328.0" prefWidth="426.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="21.0">
                     <items>
@@ -183,6 +183,8 @@
                   </SplitPane>
                </children>
             </AnchorPane>
+            <Button layoutX="1055.0" layoutY="465.0" mnemonicParsing="false" onAction="#writeExcel" text="Save" />
+            <Button layoutX="1130.0" layoutY="465.0" mnemonicParsing="false" onAction="#readExcel" text="Load" />
          </children>
       </Pane>
    </content>

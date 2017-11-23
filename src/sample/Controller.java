@@ -9,11 +9,24 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.FormValidation;
 import model.Table;
+
+import javax.activation.FileDataSource;
+import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class Controller implements Initializable {
+
+    // Lista przechowująca zawodników.
+
+    static String sciezka;
+    static String naglowki;
 
     // Players. 1/8 cup.
 
@@ -61,11 +74,15 @@ public class Controller implements Initializable {
     Label surnameLabel;
     @FXML
     Label cityLabel;
+    @FXML
+    Button save, load;
 
+    @FXML
+    private FileInputStream fis;
 
     // Data in table.
 
-    public ObservableList<Table> data = FXCollections.observableArrayList();
+    private ObservableList<Table> data = FXCollections.observableArrayList();
 
     // Adding players in table.
 
@@ -85,6 +102,13 @@ public class Controller implements Initializable {
             data.add(entry);
 
             clearForm();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Błąd!");
+            alert.setHeaderText("Nie wpisano wszystkich danych!");
+            alert.setContentText("Popraw dane i spróbuj ponownie.");
+
+            alert.showAndWait();
         }
 
     }
@@ -98,7 +122,7 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    public void setDelete (ActionEvent event ) {
+    public void setDelete(ActionEvent event) {
 
         int selectedRow = playersList.getSelectionModel().getSelectedIndex();
         if (selectedRow >= 0) {
@@ -106,7 +130,7 @@ public class Controller implements Initializable {
         } else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Brak zaznaczenia");
+            alert.setTitle("Brak zaznaczenia!");
             alert.setHeaderText("Nie zaznaczono zawodnika!");
             alert.setContentText("Proszę zaznaczyć zawodnika w tabeli.");
 
@@ -211,7 +235,6 @@ public class Controller implements Initializable {
     }
 
 
-
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -238,4 +261,60 @@ public class Controller implements Initializable {
         player8.setText(String.valueOf(iName.getCellData(7) + " " + iSurname.getCellData(7)));
 
     }
+
+    @FXML
+    public void writeExcel() throws Exception {
+        Writer writer = null;
+        try {
+            File file = new File("dane.csv");
+            writer = new BufferedWriter(new FileWriter(file));
+            for (Table players : data) {
+
+                String text = players.getRName() + "," + players.getRSurname() + "," + players.getRCity() + "\n";
+
+
+                writer.write(text);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+
+            writer.flush();
+            writer.close();
+        }
+    }
+
+    @FXML
+    public void readExcel() throws Exception {
+
+        String CsvFile = "dane.csv";
+        String FieldDelimiter = ",";
+
+        BufferedReader br;
+
+        try {
+            br = new BufferedReader(new FileReader(CsvFile));
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] fields = line.split(FieldDelimiter, -1);
+
+                Table record = new Table(fields[0], fields[1], fields[2]);
+                data.add(record);
+
+            }
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Main.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
+
+
+    }
+
 }
+
+
