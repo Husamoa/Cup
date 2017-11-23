@@ -171,7 +171,7 @@
                               <TextField fx:id="nameInput" layoutX="14.0" layoutY="33.0" prefHeight="27.0" prefWidth="120.0" promptText="Imię" />
                               <TextField fx:id="surnameInput" layoutX="153.0" layoutY="32.0" prefHeight="27.0" prefWidth="120.0" promptText="Nazwisko" />
                               <TextField fx:id="cityInput" layoutX="287.0" layoutY="31.0" prefHeight="27.0" prefWidth="120.0" promptText="Miasto" />
-                              <Button layoutX="173.0" layoutY="67.0" mnemonicParsing="false" onAction="#setAdd" prefWidth="70.0" text="Dodaj" />
+                              <Button fx:id="add" defaultButton="true" layoutX="173.0" layoutY="67.0" mnemonicParsing="false" onAction="#setAdd" prefWidth="70.0" text="Dodaj" />
                               <Button layoutX="255.0" layoutY="67.0" mnemonicParsing="false" onAction="#setDelete" prefWidth="70.0" text="Usuń" />
                               <Button layoutX="338.0" layoutY="67.0" mnemonicParsing="false" onAction="#setShuffle" prefWidth="70.0" text="Mieszaj" />
                               <Label fx:id="nameLabel" layoutX="14.0" layoutY="6.0" textFill="RED" />

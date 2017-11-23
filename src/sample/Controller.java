@@ -9,24 +9,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.FormValidation;
 import model.Table;
-
-import javax.activation.FileDataSource;
 import java.io.*;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
 public class Controller implements Initializable {
-
-    // Lista przechowująca zawodników.
-
-    static String sciezka;
-    static String naglowki;
 
     // Players. 1/8 cup.
 
@@ -75,69 +65,11 @@ public class Controller implements Initializable {
     @FXML
     Label cityLabel;
     @FXML
-    Button save, load;
-
-    @FXML
-    private FileInputStream fis;
+    Button add;
 
     // Data in table.
 
     private ObservableList<Table> data = FXCollections.observableArrayList();
-
-    // Adding players in table.
-
-    @FXML
-    public void setAdd(ActionEvent event) {
-
-
-        // FORM VALIDATION
-
-        boolean name = FormValidation.textFieldNotEpmty(nameInput, nameLabel, "Wpisz imię!");
-        boolean surname = FormValidation.textFieldNotEpmty(surnameInput, surnameLabel, "Wpisz nazwisko!");
-        boolean city = FormValidation.textFieldNotEpmty(cityInput, cityLabel, "Wpisz miasto!");
-
-        if (name && surname && city) {
-            Table entry = new Table(nameInput.getText(), surnameInput.getText(), cityInput.getText());
-
-            data.add(entry);
-
-            clearForm();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Błąd!");
-            alert.setHeaderText("Nie wpisano wszystkich danych!");
-            alert.setContentText("Popraw dane i spróbuj ponownie.");
-
-            alert.showAndWait();
-        }
-
-    }
-
-    private void clearForm() {
-
-        nameInput.clear();
-        surnameInput.clear();
-        cityInput.clear();
-
-    }
-
-    @FXML
-    public void setDelete(ActionEvent event) {
-
-        int selectedRow = playersList.getSelectionModel().getSelectedIndex();
-        if (selectedRow >= 0) {
-            playersList.getItems().remove(selectedRow);
-        } else {
-            // Nothing selected.
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Brak zaznaczenia!");
-            alert.setHeaderText("Nie zaznaczono zawodnika!");
-            alert.setContentText("Proszę zaznaczyć zawodnika w tabeli.");
-
-            alert.showAndWait();
-        }
-
-    }
 
 
     @FXML
@@ -234,17 +166,63 @@ public class Controller implements Initializable {
         }
     }
 
+    // Adding players in table.
 
     @FXML
-    public void initialize(URL location, ResourceBundle resources) {
+    public void setAdd(ActionEvent event) {
 
-        iName.setCellValueFactory(new PropertyValueFactory<>("rName"));
-        iSurname.setCellValueFactory(new PropertyValueFactory<>("rSurname"));
-        iCity.setCellValueFactory(new PropertyValueFactory<>("rCity"));
+        // Form validation.
 
-        playersList.setItems(data);
+        boolean name = FormValidation.textFieldNotEpmty(nameInput, nameLabel, "Wpisz imię!");
+        boolean surname = FormValidation.textFieldNotEpmty(surnameInput, surnameLabel, "Wpisz nazwisko!");
+        boolean city = FormValidation.textFieldNotEpmty(cityInput, cityLabel, "Wpisz miasto!");
+
+        if (name && surname && city) {
+            Table entry = new Table(nameInput.getText(), surnameInput.getText(), cityInput.getText());
+
+            data.add(entry);
+
+            clearForm();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Błąd!");
+            alert.setHeaderText("Nie wpisano wszystkich danych!");
+            alert.setContentText("Popraw dane i spróbuj ponownie.");
+
+            alert.showAndWait();
+        }
 
     }
+
+    private void clearForm() {
+
+        nameInput.clear();
+        surnameInput.clear();
+        cityInput.clear();
+
+    }
+
+    // Delete players from table.
+
+    @FXML
+    public void setDelete(ActionEvent event) {
+
+        int selectedRow = playersList.getSelectionModel().getSelectedIndex();
+        if (selectedRow >= 0) {
+            playersList.getItems().remove(selectedRow);
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Brak zaznaczenia!");
+            alert.setHeaderText("Nie zaznaczono zawodnika!");
+            alert.setContentText("Proszę zaznaczyć zawodnika w tabeli.");
+
+            alert.showAndWait();
+        }
+
+    }
+
+    // Shuffle button.
 
     @FXML
     public void setShuffle() {
@@ -261,6 +239,8 @@ public class Controller implements Initializable {
         player8.setText(String.valueOf(iName.getCellData(7) + " " + iSurname.getCellData(7)));
 
     }
+
+    // Save to .csv file
 
     @FXML
     public void writeExcel() throws Exception {
@@ -283,6 +263,8 @@ public class Controller implements Initializable {
             writer.close();
         }
     }
+
+    // Load from .csv file
 
     @FXML
     public void readExcel() throws Exception {
@@ -311,7 +293,17 @@ public class Controller implements Initializable {
             Logger.getLogger(Main.class.getName())
                     .log(Level.SEVERE, null, ex);
         }
+    }
 
+    @FXML
+    public void initialize(URL location, ResourceBundle resources) {
+
+
+        iName.setCellValueFactory(new PropertyValueFactory<>("rName"));
+        iSurname.setCellValueFactory(new PropertyValueFactory<>("rSurname"));
+        iCity.setCellValueFactory(new PropertyValueFactory<>("rCity"));
+
+        playersList.setItems(data);
 
     }
 
