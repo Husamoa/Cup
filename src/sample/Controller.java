@@ -50,11 +50,17 @@ public class Controller implements Initializable {
     @FXML
     TableView<Table> playersList;
     @FXML
+    TableColumn<Table, Integer> iLP;
+    @FXML
     TableColumn<Table, String> iName;
     @FXML
     TableColumn<Table, String> iSurname;
     @FXML
     TableColumn<Table, String> iCity;
+
+    // Define variables
+
+    private int iNumber = 1;
 
     @FXML
     TextField nameInput, surnameInput, cityInput;
@@ -169,7 +175,7 @@ public class Controller implements Initializable {
     // Adding players in table.
 
     @FXML
-    public void setAdd(ActionEvent event) {
+    public void setAdd(ActionEvent event) throws Exception {
 
         // Form validation.
 
@@ -178,7 +184,7 @@ public class Controller implements Initializable {
         boolean city = FormValidation.textFieldNotEpmty(cityInput, cityLabel, "Wpisz miasto!");
 
         if (name && surname && city) {
-            Table entry = new Table(nameInput.getText(), surnameInput.getText(), cityInput.getText());
+            Table entry = new Table(iNumber++, nameInput.getText(), surnameInput.getText(), cityInput.getText());
 
             data.add(entry);
 
@@ -192,6 +198,12 @@ public class Controller implements Initializable {
             alert.showAndWait();
         }
 
+        try {
+            writeExcel();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void clearForm() {
@@ -200,12 +212,14 @@ public class Controller implements Initializable {
         surnameInput.clear();
         cityInput.clear();
 
+        nameInput.requestFocus();
+
     }
 
     // Delete players from table.
 
     @FXML
-    public void setDelete(ActionEvent event) {
+    public void setDelete(ActionEvent event) throws Exception {
 
         int selectedRow = playersList.getSelectionModel().getSelectedIndex();
         if (selectedRow >= 0) {
@@ -218,6 +232,12 @@ public class Controller implements Initializable {
             alert.setContentText("Proszę zaznaczyć zawodnika w tabeli.");
 
             alert.showAndWait();
+        }
+
+        try {
+            writeExcel();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
@@ -281,7 +301,7 @@ public class Controller implements Initializable {
             while ((line = br.readLine()) != null) {
                 String[] fields = line.split(FieldDelimiter, -1);
 
-                Table record = new Table(fields[0], fields[1], fields[2]);
+                Table record = new Table(iNumber++, fields[0], fields[1], fields[2]);
                 data.add(record);
 
             }
@@ -298,15 +318,21 @@ public class Controller implements Initializable {
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
 
-
+        iLP.setCellValueFactory(new PropertyValueFactory<>("rLP"));
         iName.setCellValueFactory(new PropertyValueFactory<>("rName"));
         iSurname.setCellValueFactory(new PropertyValueFactory<>("rSurname"));
         iCity.setCellValueFactory(new PropertyValueFactory<>("rCity"));
 
         playersList.setItems(data);
 
+        try {
+            readExcel();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
-}
+    }
 
 

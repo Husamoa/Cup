@@ -161,9 +161,10 @@
                     <items>
                         <TableView fx:id="playersList" editable="true" prefHeight="211.0" prefWidth="431.0">
                           <columns>
-                            <TableColumn fx:id="iName" prefWidth="131.0" text="Imię" />
-                              <TableColumn fx:id="iSurname" minWidth="0.0" prefWidth="156.0" text="Nazwisko" />
-                              <TableColumn fx:id="iCity" prefWidth="138.0" text="Miasto" />
+                              <TableColumn fx:id="iLP" minWidth="0.0" prefWidth="36.0" text="LP" />
+                            <TableColumn fx:id="iName" prefWidth="115.0" text="Imię" />
+                              <TableColumn fx:id="iSurname" minWidth="0.0" prefWidth="131.0" text="Nazwisko" />
+                              <TableColumn fx:id="iCity" prefWidth="126.0" text="Miasto" />
                           </columns>
                         </TableView>
                       <AnchorPane prefHeight="216.0" prefWidth="424.0">
@@ -183,8 +184,6 @@
                   </SplitPane>
                </children>
             </AnchorPane>
-            <Button layoutX="1055.0" layoutY="465.0" mnemonicParsing="false" onAction="#writeExcel" text="Save" />
-            <Button layoutX="1130.0" layoutY="465.0" mnemonicParsing="false" onAction="#readExcel" text="Load" />
          </children>
       </Pane>
    </content>
