@@ -9,6 +9,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.FormValidation;
 import model.Table;
+import sun.applet.Main;
+
 import java.io.*;
 import java.net.URL;
 import java.util.*;
@@ -72,6 +74,13 @@ public class Controller implements Initializable {
     Label cityLabel;
     @FXML
     Button add;
+
+    @FXML
+    private TextField user;
+    @FXML
+    private TextField password;
+    @FXML
+    private Button loginButton;
 
     // Data in table.
 
@@ -315,7 +324,6 @@ public class Controller implements Initializable {
         }
     }
 
-    @FXML
     public void initialize(URL location, ResourceBundle resources) {
 
         iLP.setCellValueFactory(new PropertyValueFactory<>("rLP"));
@@ -330,9 +338,10 @@ public class Controller implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
-    }
+}
+
+
 
 

@@ -1,4 +1,4 @@
-package sample;
+package login;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,7 +18,9 @@ public class LoginController {
             @Override public void handle(ActionEvent event) {
                 String sessionID = authorize();
                 if (sessionID != null) {
-                    loginManager.authenticated(sessionID);
+                    loginManager.authenticated();
+                } else {
+                    loginManager.noAuthenticated(sessionID);
                 }
             }
         });
@@ -31,17 +33,18 @@ public class LoginController {
      * otherwise, return null.
      */
     private String authorize() {
-        return
-                "open".equals(user.getText()) && "sesame".equals(password.getText())
-                        ? generateSessionID()
-                        : null;
+        if (!"pawel".equals(user.getText()) || !"pawel".equals(password.getText())) return
+                null;
+        else return
+                generateSessionID();
     }
 
     private static int sessionID = 0;
 
     private String generateSessionID() {
         sessionID++;
-        return "sample.fxml" + sessionID;
+        return "Witaj " + sessionID;
     }
+
 
 }
