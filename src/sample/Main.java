@@ -1,10 +1,13 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
 import javafx.scene.layout.*;
+import javafx.stage.WindowEvent;
 import login.LoginManager;
 
 public class Main extends Application {
@@ -24,6 +27,5 @@ public class Main extends Application {
 
         stage.setScene(scene);
         stage.show();
-
     }
 }

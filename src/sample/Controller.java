@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -338,6 +339,7 @@ public class Controller implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
 }

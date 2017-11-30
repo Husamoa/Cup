@@ -9,20 +9,20 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane prefWidth="231.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="login.MainViewController">
+<StackPane prefWidth="231.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="login.MainViewController">
     <children>
         <StackPane>
             <children>
                 <VBox spacing="10.0">
                     <children>
-                        <GridPane>
+                        <GridPane prefWidth="211.0">
                             <rowConstraints>
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                      <columnConstraints>
-                        <ColumnConstraints maxWidth="114.0" minWidth="76.0" prefWidth="76.0" />
-                        <ColumnConstraints maxWidth="96.0" minWidth="58.0" prefWidth="96.0" />
+                        <ColumnConstraints maxWidth="114.0" minWidth="71.0" prefWidth="71.0" />
+                        <ColumnConstraints maxWidth="101.0" minWidth="58.0" prefWidth="101.0" />
                      </columnConstraints>
                      <children>
                         <Label prefHeight="17.0" prefWidth="71.0" text="Logowanie" />
@@ -31,8 +31,7 @@
                         </GridPane>
                         <StackPane prefHeight="-1.0" prefWidth="-1.0">
                             <children>
-                                <Button id="loginButton" fx:id="logoutButton" alignment="CENTER" defaultButton="true"
-                                        mnemonicParsing="false" text="Wróć" StackPane.alignment="CENTER_RIGHT" />
+                                <Button id="loginButton" fx:id="logoutButton" alignment="CENTER" defaultButton="true" mnemonicParsing="false" text="Wróć" StackPane.alignment="CENTER_RIGHT" />
                             </children>
                         </StackPane>
                     </children>
